@@ -1,0 +1,75 @@
+1. 设置登录页面 ”index.jsp"
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JSP - Hello World</title>
+    </head>
+    <body>
+        <form method="post" action="http://localhost:8080/web001_war_exploded/Login">
+            账号：<input type="text" name="id"><br>
+            密码：<input type="password" name="password"><br>
+            <input type="submit" value="登录"><input type="reset" value="重置">
+        </form>
+    </body>
+</html>
+
+2. 新建后端java代码 LoginServlet.java
+@WebServlet(name = "LoginServlet", urlPatterns = {"/Login"})
+public class LoginServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+}
+
+3. 这时候运行会乱码
+
+4. 解决乱码问题，在LoginServlet.java中加入如下代码：
+//解决网页乱码问题
+        response.setContentType("text/html;charset=utf-8");
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
+
+
+
+5. 数据库的东西搞完之后，然后新建一个model文件夹，下面写Userdata.java
+其中写3个表中的东西
+
+package com.model;
+
+public class Usedata {
+    private int id;
+    private String name;
+    private String password;
+}
+
+6.然后新建dp文件夹，这个里面用来操作数据库的方法
+
+7. 然后这个dp下面创建，Database
+public class Database {
+    public Database() {
+        Class.forName("com.mysql.jdbc.Driver");
+    }
+}
+8. 然后这里forName报错，在WEB-INF/lib下添加mysql-connector-java-5.1.47-bin.jar，然后添加到library中才行
+
+
+然后新建类，看看是否可以连接数据库
+public class test {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        Database db = new Database();
+        Database.showConnect();
+    }
+}
+
+
+web下面新建Register.jsp注册页面
+
+
+
+
+
+
