@@ -12,7 +12,7 @@
 </head>
 <body>
 <form method="post" action="http://localhost:8080/web001_war_exploded/Login">
-    用户号：<input type="text" name="id"><br>
+    用户名：<input type="text" name="id"><br>
     密码：<input type="password" name="password"><br>
     确认密码：<input type="password" name="password"><br>
     <input type="submit" value="注册"><input type="reset" value="重置">
