@@ -16,14 +16,20 @@ public class test {
 //        Database.close();
 
 
-        Usedata usedata = Database.login(2,"123456");
-        System.out.println(usedata);
-        if(usedata == null) {
-            System.out.println("登录失败");
-        } else {
-            System.out.println("登录成功"+usedata.getName());
-        }
+//        Usedata usedata = Database.login(2,"123456");
+//        System.out.println(usedata);
+//        if(usedata == null) {
+//            System.out.println("登录失败");
+//        } else {
+//            System.out.println("登录成功"+usedata.getName());
+//        }
 
+
+//        db.insert("test","123456");
+
+
+
+        db.close();
 
 
 

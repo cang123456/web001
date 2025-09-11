@@ -1,6 +1,7 @@
 package com.example.web001;
 
 import com.db.Database;
+import com.model.Numdata;
 import com.model.Usedata;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,7 +14,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import static java.lang.System.out;
-
+import static java.lang.Thread.sleep;
 
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/Login"})
@@ -30,7 +31,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         PrintWriter out = response.getWriter();
         out.println("输入的账号为："+id+"密码"+password);
-
+//        response.reset();
 
         try {
             Database database = new Database();
@@ -40,6 +41,7 @@ public class LoginServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
         Usedata usedata = null;
+
         try {
             usedata = Database.login(id,password);
         } catch (SQLException e) {
@@ -49,7 +51,21 @@ public class LoginServlet extends HttpServlet {
         if(usedata == null) {
             out.println("登录失败");
         } else {
-            out.println("登录成功"+usedata.getName());
+            Numdata numdata = null;
+            try {
+                numdata = Database.getNum(1);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+//            out.println("登录成功"+usedata.getName());
+            // 方式1：请求转发到second.jsp
+            request.setAttribute("message", "登录成功，欢迎您！");
+            String name = usedata.getName();
+            int num = numdata.getNum();
+            request.setAttribute("name", name);
+            request.setAttribute("num",num);
+            request.getRequestDispatcher("/FileDownload.jsp").forward(request, response);
         }
 
     }
